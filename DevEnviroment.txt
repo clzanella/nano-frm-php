@@ -1,0 +1,67 @@
+## PHP 7 install
+
+sudo apt-get install python-software-properties software-properties-common
+sudo LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
+sudo apt-get update
+sudo apt-get install php7.0 php7.0-fpm php7.0-mysql -y
+
+php -v
+
+## JDK
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java8-installer
+sudo apt-get install oracle-java8-set-default
+
+## Netbeans (versao 8.2 ou do nigth build para funcionar a integracao com phpunit)
+sudo chmod +x netbeans-8.2-php-linux-x64.sh 
+./netbeans-8.2-php-linux-x64.sh
+
+## XDebug: http://www.dieuwe.com/blog/xdebug-ubuntu-1604-php7
+sudo apt-get install php-xdebug
+sudo scratch-text-editor /etc/php/7.0/mods-available/xdebug.ini
+xdebug.show_error_trace = 1
+sudo apt-get install php-soap php-curl
+
+sudo scratch-text-editor /etc/php/7.0/cli/php.ini
+
+[xdebug]
+xdebug.remote_enable = 1
+xdebug.remote_connect_back=1
+xdebug.remote_port = 9000
+xdebug.scream=0
+xdebug.show_local_vars=1
+
+## Composer: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-ubuntu-14-04
+curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+Use it: php /usr/local/bin/composer
+## Fazer o netbeans apontar para o composer
+## Cannot create cache directory
+sudo chown -R user /home/user/.composer
+
+## Dependências do PhpUnit 6.1
+sudo apt-get install php7.0-xml
+sudo apt-get install php7.0-mbstring
+## https://phpunit.de/manual/current/pt_br/installation.html
+wget https://phar.phpunit.de/phpunit.phar
+chmod +x phpunit.phar
+sudo mv phpunit.phar /usr/local/bin/phpunit
+phpunit --version
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

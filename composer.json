@@ -1,0 +1,33 @@
+{
+    "name": "evolutionarylabs/nano-frm",
+    "description": "Functional Relational Mapping for PHP.",
+    "keywords": ["frm", "functional", "relational", "sql"],
+    "homepage": "http://nanofrm.com",
+    "license": "BSD",
+    "authors": [
+        {
+            "name": "Caio",
+            "email": "caio@gmail.com"
+        },
+        {
+            "name": "Cleber Zanella",
+            "email": "cleber.zanella@gmail.com"
+        }
+    ],
+    
+    "type": "library",
+    
+    "require": {
+        "php": ">=7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "6.1.*"
+    },
+    
+    "autoload": {
+        "classmap": [ "src/" ]
+    },
+    "autoload-dev": {
+        "classmap": [ "tests/" ]
+  }
+}
