@@ -74,7 +74,7 @@ class DynamicProxyTest extends TestCase
         
         // Solution: http://stackoverflow.com/questions/9525208/php-wrap-all-functions-of-a-class-in-a-subclass
         // http://stackoverflow.com/questions/13532847/automatically-invoke-call-of-parent-class-when-invoking-public-child-method
-        $this->markTestSkipped("DynamicProxy fail for functions.");
+        //$this->markTestSkipped("DynamicProxy fail for functions.");
 
         $functionHandler = new class implements FunctionHandler {
             
@@ -95,7 +95,7 @@ class DynamicProxyTest extends TestCase
         $proxy->getEnderecoCompleto();
         
         $this->assertEquals($functionHandler->lastFunctionName, "getEnderecoCompleto");
-        $this->assertEquals($functionHandler->lastFunctionArgs, null);
+        $this->assertEquals(count($functionHandler->lastFunctionArgs), 0);
 
     }
 }

@@ -94,8 +94,10 @@ class DynamicProxy {
             return new $spyClassName();
         }
         
+        $parentMethodsOverrides = DynamicProxy::createProxyMethodsOverriding($className);
+        
         // TODO : HHVM not support eval();
-        $ret = eval(" 
+        $proxyClassCode = " 
 
             class {$spyClassName} extends {$className} {
                 
@@ -112,13 +114,62 @@ class DynamicProxy {
                 public function __call(\$method, \$args) {
                     \$this->interceptFunction(\$method, \$args); 
                 }
+                
+                {$parentMethodsOverrides}
+
             }
 
             return new {$spyClassName}();
 
-        ");
-            
+        ";
+
+        $ret = eval($proxyClassCode);
         return $ret;
+    }
+    
+    private static function createProxyMethodsOverriding($className){
+        
+        $argListFunc = function($parameters, $withTypes) {
+          
+            $result = "";
+            
+            foreach ($parameters as $parameter){
+
+                if($parameter->hasType() && $withTypes){
+                    $result .= $parameter->getType() . " ";
+                }
+
+                $result .= "$".$parameter->name.", ";
+            }
+            
+            if(strlen($result) > 0){
+                $result = rtrim($result,", ");
+            }
+            
+            return $result;
+        };
+        
+        $class = new \ReflectionClass($className);
+        $methods = $class->getMethods(\ReflectionMethod::IS_PUBLIC);
+        
+        $mResult = "";
+        
+        foreach ($methods as $method){
+            
+            if($method->isFinal()){
+                continue;
+            }
+            
+            $methodName = $method->name;
+            $signatureArgs = $argListFunc($method->getParameters(), true);
+            $parentCallArgs = $argListFunc($method->getParameters(), false);
+            $return = $method->hasReturnType() ? "return" : "";
+            
+            $mResult .= "public function {$methodName}({$signatureArgs}) { {$return} \$this->interceptFunction(\"{$methodName}\", array({$parentCallArgs})); }";
+            $mResult .= "\n";
+        }
+        
+        return $mResult;
     }
 
 }

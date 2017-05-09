@@ -26,11 +26,13 @@ sudo apt-get install php-soap php-curl
 sudo scratch-text-editor /etc/php/7.0/cli/php.ini
 
 [xdebug]
+xdebug.idekey=netbeans-xdebug
 xdebug.remote_enable = 1
 xdebug.remote_connect_back=1
 xdebug.remote_port = 9000
 xdebug.scream=0
 xdebug.show_local_vars=1
+
 
 ## Composer: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-composer-on-ubuntu-14-04
 curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
@@ -48,6 +50,7 @@ chmod +x phpunit.phar
 sudo mv phpunit.phar /usr/local/bin/phpunit
 phpunit --version
 
+## Debug PHP Unit: http://blog.doh.ms/2011/05/13/debugging-phpunit-tests-in-netbeans-with-xdebug/
 
 
 
