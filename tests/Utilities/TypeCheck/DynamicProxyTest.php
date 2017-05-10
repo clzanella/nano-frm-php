@@ -72,10 +72,6 @@ class DynamicProxyTest extends TestCase
     
     public function testFunctionAccess(){
         
-        // Solution: http://stackoverflow.com/questions/9525208/php-wrap-all-functions-of-a-class-in-a-subclass
-        // http://stackoverflow.com/questions/13532847/automatically-invoke-call-of-parent-class-when-invoking-public-child-method
-        //$this->markTestSkipped("DynamicProxy fail for functions.");
-
         $functionHandler = new class implements FunctionHandler {
             
             public $lastFunctionName;

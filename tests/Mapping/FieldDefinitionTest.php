@@ -88,15 +88,6 @@ class FieldDefinitionTest extends TestCase
         
     }
 
-    public function testFromClosureWithNull() {
-        
-        $this->expectException(\TypeError::class);
-        
-        FieldDefinition::fromClosure(null);
-        
-    }
-
-    
     public function testFromClosureUntyped() {
         
         $this->expectException(\InvalidArgumentException::class);
